@@ -1,3 +1,4 @@
+using calc.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace calc
@@ -5,34 +6,38 @@ namespace calc
 
     public partial class Form1 : Form
     {
+        private Angle? Angle;
+
         public Form1()
         {
             InitializeComponent();
         }
 
+
         double a, c, ar;
         int degree, minut, sec;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedIndex == -1)
-            {
-                a = double.Parse(textBox1.Text);
-                degree = (int)a;
-                if (a % 1 != 0)
-                {
-                    minut = (int)(60 * (a - degree));
-                    if ((60 * (a - degree)) % 1 != 0)
-                    {
-                        ;
-                        sec = (int)(60 * ((60 * (a - degree)) % 1));
-                        textBox2.Text = (" " + degree + "° " + minut + "' " + sec + "'' ");
-                    }
-                    else { textBox2.Text = (" " + degree + "° " + minut + "' "); }
-                }
-                else { textBox2.Text = (" " + degree + "° "); }
-            }
-            ar = a * Math.PI / 180;
-
+            //if (comboBox2.SelectedIndex == -1)
+            //{
+            //    a = double.Parse(textBox1.Text);
+            //    degree = (int)a;
+            //    if (a % 1 != 0)
+            //    {
+            //        minut = (int)(60 * (a - degree));
+            //        if ((60 * (a - degree)) % 1 != 0)
+            //        {
+            //            ;
+            //            sec = (int)(60 * ((60 * (a - degree)) % 1));
+            //            textBox2.Text = (" " + degree + "° " + minut + "' " + sec + "'' ");
+            //        }
+            //        else { textBox2.Text = (" " + degree + "° " + minut + "' "); }
+            //    }
+            //    else { textBox2.Text = (" " + degree + "° "); }
+            //}
+            //ar = a * Math.PI / 180;
+            Angle = Angle.FromString(textBox1.Text);
+            textBox2.Text = Angle.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -47,20 +52,22 @@ namespace calc
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedIndex == 0)
+            if (sender is System.Windows.Forms.ComboBox cb)
             {
-                degree = int.Parse(textBox1.Text);
-                textBox2.Text = (" " + degree + "° ");
-            }
-            if (comboBox2.SelectedIndex == 1)
-            {
-                minut = int.Parse(textBox1.Text);
-                textBox2.Text = (" " + degree + "° " + minut + "' ");
-            }
-            if (comboBox2.SelectedIndex == 2)
-            {
-                sec = int.Parse(textBox1.Text);
-                textBox2.Text = (" " + degree + "° " + minut + "' " + sec + "'' ");
+                switch (cb.SelectedItem.ToString())
+                {
+                    case "°":
+                        textBox1.Text += "°";
+                        break;
+                    case "'":
+                        textBox1.Text += "'";
+                        break;
+                    case "\"":
+                        textBox1.Text += "\"";
+                        break;
+                    default:
+                        break;
+                }
             }
             a = degree + minut * 0.06 + sec * 0.0036;
             ar = a * Math.PI / 180;
@@ -71,15 +78,28 @@ namespace calc
 
         private void button6_Click(object sender, EventArgs e)
         {
-
-            c = Math.Cos(ar);
-            textBox3.Text = ("косинус равен: " + c);
+            if (Angle != null)
+            {
+                c = Math.Cos(Angle!.Radians);
+                textBox3.Text = ("косинус равен: " + c);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            c = Math.Tan(ar);
-            textBox3.Text = ("тангенс равен: " + c);
+            if (Angle != null)
+            {
+                c = Math.Tan(Angle!.Radians);
+                textBox3.Text = ("Тангенс равен: " + c);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -94,8 +114,15 @@ namespace calc
 
         private void button7_Click(object sender, EventArgs e)
         {
-            c = Math.Sin(ar);
-            textBox3.Text = ("синус равен: " + c);
+            if (Angle != null)
+            {
+                c = Math.Sin(Angle!.Radians);
+                textBox3.Text = ("Синус равен: " + c);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -105,8 +132,15 @@ namespace calc
 
         private void button9_Click(object sender, EventArgs e)
         {
-            c = 1 / Math.Tan(ar);
-            textBox3.Text = ("котангенс равен: " + c);
+            if (Angle != null)
+            {
+                c = 1 / Math.Tan(Angle!.Radians);
+                textBox3.Text = ("Котангенс равен: " + c);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
         }
     }
 }

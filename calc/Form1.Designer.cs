@@ -60,7 +60,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 23);
             label1.Name = "label1";
-            label1.Size = new Size(146, 15);
+            label1.Size = new Size(147, 15);
             label1.TabIndex = 3;
             label1.Text = "Введите число в градусах";
             label1.Click += label1_Click;
@@ -68,7 +68,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 94);
+            label2.Location = new Point(12, 109);
             label2.Name = "label2";
             label2.Size = new Size(61, 15);
             label2.TabIndex = 4;

@@ -2,12 +2,20 @@
 
 namespace calc.Models
 {
-    internal class Angle
+    public class Angle
     {
         private int _degrees;
         private int _minutes;
         private int _seconds;
         private decimal _decimalpart;
+
+        public double Radians
+        {
+            get
+            {
+                return (double)ToDecimalDegrees() * Math.PI / 180;
+            }
+        }
 
         public Angle(int degrees, int minutes, int seconds, decimal decimalPart = 0)
         {
@@ -74,4 +82,3 @@ namespace calc.Models
         }
     }
 }
-
