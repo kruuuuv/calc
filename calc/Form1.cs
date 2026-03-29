@@ -2,6 +2,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace calc
 {
+
     public partial class Form1 : Form
     {
         public Form1()
