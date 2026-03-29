@@ -1,3 +1,4 @@
+using calc.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace calc
@@ -9,7 +10,7 @@ namespace calc
         {
             InitializeComponent();
         }
-
+        private Angle? Angle;
         double a, c, ar;
         int degree, minut, sec;
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -31,7 +32,7 @@ namespace calc
                 }
                 else { textBox2.Text = (" " + degree + "° "); }
             }
-            ar = a * Math.PI / 180;
+            Angle = Angle.FromString(textBox2.Text);
 
         }
 
@@ -68,7 +69,7 @@ namespace calc
         private void button6_Click(object sender, EventArgs e)
         {
 
-            c = Math.Cos(ar);
+            c = Math.Cos(Angle.Radians);
             textBox3.Text = ("косинус равен: " + c);
         }
 

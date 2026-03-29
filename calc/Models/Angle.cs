@@ -9,6 +9,14 @@ namespace calc.Models
         private int _seconds;
         private decimal _decimalpart;
 
+        public double Radians
+        {
+            get
+            {
+                return (double)ToDecimalDegrees() * Math.PI / 180;
+            }
+        }
+
         public Angle(int degrees, int minutes, int seconds, decimal decimalPart = 0)
         {
             _degrees = degrees;
