@@ -203,6 +203,7 @@
             button9.TabIndex = 19;
             button9.Text = "ctg";
             button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
             // 
             // Form1
             // 

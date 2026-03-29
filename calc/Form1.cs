@@ -9,8 +9,8 @@ namespace calc
         {
             InitializeComponent();
         }
-        
-        double a, c;
+
+        double a, c, ar;
         int degree, minut, sec;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -20,9 +20,10 @@ namespace calc
                 degree = (int)a;
                 if (a % 1 != 0)
                 {
-                    minut = (int)(60 * (a-degree));
+                    minut = (int)(60 * (a - degree));
                     if ((60 * (a - degree)) % 1 != 0)
-                    {;
+                    {
+                        ;
                         sec = (int)(60 * ((60 * (a - degree)) % 1));
                         textBox2.Text = (" " + degree + "° " + minut + "' " + sec + "'' ");
                     }
@@ -30,6 +31,7 @@ namespace calc
                 }
                 else { textBox2.Text = (" " + degree + "° "); }
             }
+            ar = a * Math.PI / 180;
 
         }
 
@@ -45,13 +47,13 @@ namespace calc
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedIndex == 0) 
+            if (comboBox2.SelectedIndex == 0)
             {
                 degree = int.Parse(textBox1.Text);
                 textBox2.Text = (" " + degree + "° ");
             }
-            if (comboBox2.SelectedIndex == 1) 
-            { 
+            if (comboBox2.SelectedIndex == 1)
+            {
                 minut = int.Parse(textBox1.Text);
                 textBox2.Text = (" " + degree + "° " + minut + "' ");
             }
@@ -61,20 +63,22 @@ namespace calc
                 textBox2.Text = (" " + degree + "° " + minut + "' " + sec + "'' ");
             }
             a = degree + minut * 0.06 + sec * 0.0036;
-           
+
+
 
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
 
-            c = Math.Cos(a);
-            textBox3.Text = ("косинус равен:" + c);
+            c = Math.Cos(ar);
+            textBox3.Text = ("косинус равен: " + c);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-
+            c = Math.Tan(ar);
+            textBox3.Text = ("тангенс равен: " + c);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -89,13 +93,19 @@ namespace calc
 
         private void button7_Click(object sender, EventArgs e)
         {
-            c = Math.Sin(a);
-            textBox3.Text = ("синус равен:" + c);
+            c = Math.Sin(ar);
+            textBox3.Text = ("синус равен: " + c);
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            c = 1 / Math.Tan(ar);
+            textBox3.Text = ("котангенс равен: " + c);
         }
     }
 }
