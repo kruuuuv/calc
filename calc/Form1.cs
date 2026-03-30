@@ -1,5 +1,4 @@
 using calc.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace calc
 {
@@ -13,9 +12,6 @@ namespace calc
             InitializeComponent();
         }
 
-
-        double a, c, ar;
-        int degree, minut, sec;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             //if (comboBox2.SelectedIndex == -1)
@@ -95,7 +91,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = Math.Cos(Angle!.Radians);
+                var c = Math.Cos(Angle!.Radians);
                 textBox3.Text = ("косинус равен: " + c);
             }
             else
@@ -108,7 +104,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = Math.Tan(Angle!.Radians);
+                var c = Math.Tan(Angle!.Radians);
                 textBox3.Text = ("Тангенс равен: " + c);
             }
             else
@@ -131,7 +127,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = Math.Sin(Angle!.Radians);
+                var c = Math.Sin(Angle!.Radians);
                 textBox3.Text = ("Синус равен: " + c);
             }
             else
@@ -149,7 +145,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = 1 / Math.Tan(Angle!.Radians);
+                var c = 1 / Math.Tan(Angle!.Radians);
                 textBox3.Text = ("Котангенс равен: " + c);
             }
             else
