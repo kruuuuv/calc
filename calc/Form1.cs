@@ -65,23 +65,8 @@ namespace calc
                         break;
                 }
             }
-
-            //if (comboBox2.SelectedIndex == 0)
-            //{
-            //    degree = int.Parse(textBox1.Text);
-            //    textBox2.Text = (" " + degree + "° ");
-            //}
-            //if (comboBox2.SelectedIndex == 1)
-            //{
-            //    minut = int.Parse(textBox1.Text);
-            //    textBox2.Text = (" " + degree + "° " + minut + "' ");
-            //}
-            //if (comboBox2.SelectedIndex == 2)
-            //{
-            //    sec = int.Parse(textBox1.Text);
-            //    textBox2.Text = (" " + degree + "° " + minut + "' " + sec + "'' ");
-            //}
-            //a = degree + minut * 0.06 + sec * 0.0036;
+            a = degree + minut * 0.06 + sec * 0.0036;
+            ar = a * Math.PI / 180;
 
 
 
