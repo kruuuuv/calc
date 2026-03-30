@@ -8,12 +8,7 @@ namespace calc.Models
         private int _minutes;
         private int _seconds;
         private decimal _decimalPart;
-
-        public int Degrees { get { return _degrees; } }
-        public int Minutes { get { return _minutes; } }
-        public int Seconds { get { return _seconds; } }
-        public decimal Decimalpart { get { return _decimalPart; } }
-
+        
         public double Radians
         {
             get
