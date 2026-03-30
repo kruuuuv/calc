@@ -17,6 +17,11 @@ namespace calc.Models
             }
         }
 
+        public static Angle FromRadians(double radians)
+        {
+            return FromDecimal((decimal)(radians * 180 / Math.PI));
+        }
+
         public Angle(int degrees, int minutes, int seconds, decimal decimalPart = 0)
         {
             _degrees = degrees;
@@ -66,7 +71,7 @@ namespace calc.Models
                             int.TryParse(match.Groups[key].Value.Replace("'", ""), out m);
                             break;
                         case "seconds":
-                            int.TryParse(match.Groups[key].Value.Replace("\"", ""), out s);
+                            int.TryParse(match.Groups[key].Value.Replace("''", ""), out s);
                             break;
                         case "decimalpart":
                             decimal.TryParse(string.IsNullOrEmpty(match.Groups[key].Value) ? "0" : $"0{match.Groups[key].Value}", out p);
@@ -83,7 +88,7 @@ namespace calc.Models
 
         public override string ToString()
         {
-            return $"{_degrees}° {_minutes}' {_seconds}\"{_decimalPart.ToString().Substring(1)}";
+            return $"{_degrees}° {_minutes}' {_seconds}''{_decimalPart.ToString().Substring(1)}";
         }
 
         public static Angle operator +(Angle a, Angle b)

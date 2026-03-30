@@ -13,29 +13,23 @@ namespace calc
         }
         private Angle? Angle;
         private Stack<string> _operators = new Stack<string>();
-        decimal Integ;
+        decimal integ;
         double a;
         int degrees, minutes, secunds;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (comboBox2.SelectedIndex == -1)
             {
-                a = double.Parse(textBox1.Text);
-                degrees = (int)a;
-                if (a % 1 != 0)
-                {
-                    minutes = (int)(60 * (a - degrees));
-                    if ((60 * (a - degrees)) % 1 != 0)
-                    {
-                        secunds = (int)(60 * ((60 * (a - degrees)) % 1));
-                        textBox2.Text = (" " + degrees + "° " + minutes + "' " + secunds + "''");
-                    }
-                    else { textBox2.Text = (" " + degrees + "° " + minutes + "' "); }
-                }
-                else { textBox2.Text = (" " + degrees + "° "); }
+                double.TryParse(textBox1.Text, out a);
+                Angle = Angle.FromDecimal((decimal)a);
+                textBox2.Text = Angle.ToString();
             }
-            Angle = Angle.FromString(textBox2.Text);
-            
+            if (comboBox2.SelectedIndex == 0)
+            {
+                integ = decimal.Parse(textBox1.Text);
+                textBox2.Text = " " + integ;
+            }
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -61,13 +55,13 @@ namespace calc
                             label5.Text += "-";
                             break;
                         case "*":
-                            Integ = decimal.Parse(textBox1.Text);
-                            Angle = Angle.FromString(_operators.Pop()) * Integ;
+                            integ = decimal.Parse(textBox1.Text);
+                            Angle = Angle.FromString(_operators.Pop()) * integ;
                             label5.Text += "*";
                             break;
                         case "/":
-                            Integ = decimal.Parse(textBox1.Text);
-                            Angle = Angle.FromString(_operators.Pop()) / Integ;
+                            integ = decimal.Parse(textBox1.Text);
+                            Angle = Angle.FromString(_operators.Pop()) / integ;
                             label5.Text += "/";
                             break;
                         default:
@@ -81,12 +75,12 @@ namespace calc
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedIndex == 0)
+            if (comboBox2.SelectedIndex == 1)
             {
                 degrees = int.Parse(textBox1.Text);
                 textBox2.Text = (" " + degrees + "° ");
             }
-            if (comboBox2.SelectedIndex == 1)
+            if (comboBox2.SelectedIndex == 2)
             {
                 minutes = int.Parse(textBox1.Text);
                 if (minutes < 0 || minutes > 59)
@@ -94,9 +88,10 @@ namespace calc
                     MessageBox.Show("Минуты должны входить в диапозон от 0 до 60", "Ошибка!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     minutes = 0;
                     textBox2.Text = (" " + degrees + "° ");
-                }else { textBox2.Text = (" " + degrees + "° " + minutes + "' "); }
+                }
+                else { textBox2.Text = (" " + degrees + "° " + minutes + "' "); }
             }
-            if (comboBox2.SelectedIndex == 2)
+            if (comboBox2.SelectedIndex == 3)
             {
                 secunds = int.Parse(textBox1.Text);
                 if (secunds < 0 || secunds > 59)
@@ -104,7 +99,8 @@ namespace calc
                     MessageBox.Show("Секунды должны входить в диапозон от 0 до 60", "Ошибка!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     secunds = 0;
                     textBox2.Text = (" " + degrees + "° " + minutes + "' ");
-                }else { textBox2.Text = (" " + degrees + "° " + minutes + "' " + secunds + "'' "); }
+                }
+                else { textBox2.Text = (" " + degrees + "° " + minutes + "' " + secunds + "'' "); }
             }
 
 
@@ -174,7 +170,7 @@ namespace calc
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
+            Angle = Angle.FromString(textBox2.Text);
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -233,6 +229,67 @@ namespace calc
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (integ != null)
+            {
+                var Cunt = Math.Acos((double)integ);
+                Angle = Angle.FromRadians(Cunt);
+                textBox3.Text = ("арккосинус равен: " + Angle);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (integ != null)
+            {
+                var Cunt = Math.Asin((double)integ);
+                Angle = Angle.FromRadians(Cunt);
+                textBox3.Text = ("арксинус равен: " + Angle);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (integ != null)
+            {
+                var Cunt = Math.Atan((double)integ);
+                Angle = Angle.FromRadians(Cunt);
+                textBox3.Text = ("артангенс равен: " + Angle);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (integ != null)
+            {
+                var Cunt = Math.Atan(1 / (double)integ);
+                Angle = Angle.FromRadians(Cunt);
+                textBox3.Text = ("арккотангенс равен: " + Angle);
+            }
+            else
+            {
+                textBox3.Text = ("Угол не определен.");
+            }
         }
     }
 }
