@@ -106,10 +106,7 @@ namespace calc
                     textBox2.Text = (" " + degrees + "° " + minutes + "' ");
                 }else { textBox2.Text = (" " + degrees + "° " + minutes + "' " + secunds + "'' "); }
             }
-
-
-
-
+            a = degree + minut * 0.06 + sec * 0.0036;
         }
 
         private void button6_Click(object sender, EventArgs e)
