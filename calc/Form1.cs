@@ -1,5 +1,5 @@
 using calc.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Text.RegularExpressions;
 
 namespace calc
 {
@@ -7,15 +7,13 @@ namespace calc
     public partial class Form1 : Form
     {
         private Angle? Angle;
+        private Stack<string> _operators = new Stack<string>();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-
-        double a, c, ar;
-        int degree, minut, sec;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             //if (comboBox2.SelectedIndex == -1)
@@ -47,7 +45,33 @@ namespace calc
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var operatorsRegex = new Regex("^\\+|-|\\*|\\/$");
+            if (_operators.Count > 0)
+            {
+                var record = _operators.Pop();
+                if (operatorsRegex.IsMatch(record))
+                {
+                    switch (record)
+                    {
+                        case "+":
+                            Angle = Angle.FromString(_operators.Pop()) + Angle;
+                            break;
+                        case "-":
+                            Angle = Angle.FromString(_operators.Pop()) - Angle;
+                            break;
+                        case "*":
+                            Angle = Angle.FromString(_operators.Pop()) - Angle;
+                            break;
+                        case "/":
+                            Angle = Angle.FromString(_operators.Pop()) - Angle;
+                            break;
+                        default:
+                            break;
+                    }
+                    textBox3.Text = ("Результат равен: " + Angle.ToString());
+                }
 
+            }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,20 +91,15 @@ namespace calc
                         break;
                     default:
                         break;
-                }
+                }                
             }
-            a = degree + minut * 0.06 + sec * 0.0036;
-            ar = a * Math.PI / 180;
-
-
-
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             if (Angle != null)
             {
-                c = Math.Cos(Angle!.Radians);
+                var c = Math.Cos(Angle!.Radians);
                 textBox3.Text = ("косинус равен: " + c);
             }
             else
@@ -93,7 +112,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = Math.Tan(Angle!.Radians);
+                var c = Math.Tan(Angle!.Radians);
                 textBox3.Text = ("Тангенс равен: " + c);
             }
             else
@@ -104,7 +123,12 @@ namespace calc
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if (Angle != null)
+            {
+                _operators.Push(Angle.ToString());
+                _operators.Push("+");
+                textBox1.Text = string.Empty;
+            }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -116,7 +140,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = Math.Sin(Angle!.Radians);
+                var c = Math.Sin(Angle!.Radians);
                 textBox3.Text = ("Синус равен: " + c);
             }
             else
@@ -134,7 +158,7 @@ namespace calc
         {
             if (Angle != null)
             {
-                c = 1 / Math.Tan(Angle!.Radians);
+                var c = 1 / Math.Tan(Angle!.Radians);
                 textBox3.Text = ("Котангенс равен: " + c);
             }
             else
